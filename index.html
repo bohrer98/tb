@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Convite para Tha Burbello</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: #FFF8F0;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+      padding: 20px;
+    }
+    h1 {
+      font-size: 2rem;
+      color: #FF6F61;
+    }
+    p, label {
+      font-size: 1.2rem;
+      margin: 15px 0;
+    }
+    button {
+      background-color: #FF6F61;
+      border: none;
+      padding: 12px 24px;
+      color: #fff;
+      font-size: 1rem;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background-color: #40E0D0;
+      color: #000;
+    }
+    .hidden {
+      display: none;
+    }
+    select, input[type="text"], input[type="date"] {
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+      margin-bottom: 20px;
+    }
+    #resumo {
+      margin-top: 20px;
+    }
+    #contador {
+      font-size: 1.5rem;
+      margin-top: 10px;
+      color: #FFD700;
+    }
+  </style>
+</head>
+<body>
+  <div id="pagina1">
+    <h1>Oi, Tha Burbello — a musa das festas e dos rolês duvidosos 🌴🎉</h1>
+    <p>Hoje o convite é diferente: montei um date na sua vibe — leve, divertido e com a sua cara.<br>Agora só falta você personalizar ele do jeitinho que quiser.</p>
+    <button onclick="proximaPagina(2)">Quero montar esse rolê</button>
+  </div>
+
+  <div id="pagina2" class="hidden">
+    <h1>Escolha o dia em que você vai trazer pra mim todo o brilho que Curitiba merece ter ✨</h1>
+    <input type="date" id="dataEncontro" />
+    <br><br>
+    <button onclick="verificarData()">Escolher o jantar</button>
+  </div>
+
+  <div id="pagina3" class="hidden">
+    <h1>Jantar 🍽️</h1>
+    <p>Escolhe um dos lugares em Curitiba:</p>
+    <select id="jantar">
+      <option value="">-- Selecione --</option>
+      <option value="Terrazza 40">Terrazza 40 – Vista + vinho + você = perfeito</option>
+      <option value="Barollo Trattoria">Barollo Trattoria – Italiano chic, pra gente se amar em alta gastronomia</option>
+      <option value="Babilônia Gastronomia">Babilônia Gastronomia – Drinks e tapas com vibe moderna</option>
+      <option value="A Caiçara">A Caiçara – Marzinho curitibano pra lembrar da praia com você</option>
+      <option value="Outro">Outro (digita abaixo)</option>
+    </select><br>
+    <input type="text" id="jantarOutro" placeholder="Ex: Jantar na minha casa com o chefe Leo 🍝✨">
+    <br>
+    <button onclick="verificarJantar()">Próximo: o pós-janta</button>
+  </div>
+
+  <div id="pagina4" class="hidden">
+    <h1>Rolê Pós-Jantar 🎉</h1>
+    <p>Escolhe a vibe do pós:</p>
+    <select id="role">
+      <option value="">-- Selecione --</option>
+      <option value="James Bar">James Bar – Funk, pop e a pista nossa de cada dia</option>
+      <option value="+55 Bar">+55 Bar – Drinks e DJ pra dançar abraçadinho</option>
+      <option value="Jardim Secreto + vinho">Jardim Secreto + vinho – A vibe mais romântica da cidade</option>
+      <option value="Bar de cachorro quente + karaokê">Dogão + karaokê – Cantando mal e me apaixonando por você</option>
+      <option value="Outro">Outro (digita abaixo)</option>
+    </select><br>
+    <input type="text" id="roleOutro" placeholder="Ex: Invadir a Pedreira Paulo Leminski com vinho e coragem">
+    <br>
+    <button onclick="verificarRole()">Confirmar o rolê</button>
+  </div>
+
+  <div id="pagina5" class="hidden">
+    <h1>Chegamos na reta final, Tha.</h1>
+    <p>Agora só falta você aceitar esse convite meio ousado, muito sincero e 100% na tua vibe.</p>
+    <button onclick="proximaPagina(6)">✅ Aceito!</button>
+    <br><br>
+    <button onclick="alert('Nem brinca com isso, Tha 😢 Curitiba perde totalmente a graça...')">❌ Não aceito</button>
+  </div>
+
+  <div id="pagina6" class="hidden">
+    <h1>Então é isso:</h1>
+    <div id="resumo"></div>
+    <p>Em exatamente <span id="contador"></span>, vou estar diante da mulher mais linda, festeira e parceira de rolês duvidosos desse Brasil 😍<br>Playlist separada, energia lá em cima e o coração batendo forte.</p>
+    <br>
+    <img src="https://media.giphy.com/media/JIX9t2j0ZTN9S/giphy.gif" alt="Gatinho fofo" width="200">
+  </div>
+
+  <script>
+    function proximaPagina(numero) {
+      for (let i = 1; i <= 6; i++) {
+        document.getElementById(`pagina${i}`).classList.add('hidden');
+      }
+      document.getElementById(`pagina${numero}`).classList.remove('hidden');
+      if (numero === 6) mostrarResumo();
+    }
+
+    function verificarData() {
+      const data = document.getElementById('dataEncontro').value;
+      if (!data) {
+        alert('Escolhe uma data, Tha! 💖');
+        return;
+      }
+      proximaPagina(3);
+    }
+
+    function verificarJantar() {
+      const jantar = document.getElementById('jantar').value;
+      const jantarOutro = document.getElementById('jantarOutro').value.trim();
+
+      if (!jantar || (jantar === "Outro" && !jantarOutro)) {
+        alert('Preciso saber onde vamos jantar 😋');
+        return;
+      }
+      proximaPagina(4);
+    }
+
+    function verificarRole() {
+      const role = document.getElementById('role').value;
+      const roleOutro = document.getElementById('roleOutro').value.trim();
+
+      if (!role || (role === "Outro" && !roleOutro)) {
+        alert('E o pós? Escolhe o rolê, Tha 🎉');
+        return;
+      }
+      proximaPagina(5);
+    }
+
+    function mostrarResumo() {
+      const data = document.getElementById('dataEncontro').value;
+      let jantar = document.getElementById('jantar').value;
+      const jantarOutro = document.getElementById('jantarOutro').value;
+      if (jantar === 'Outro' && jantarOutro.trim()) jantar = jantarOutro;
+
+      let role = document.getElementById('role').value;
+      const roleOutro = document.getElementById('roleOutro').value;
+      if (role === 'Outro' && roleOutro.trim()) role = roleOutro;
+
+      document.getElementById('resumo').innerHTML = `
+        <p>📅 <strong>Dia escolhido:</strong> ${data}</p>
+        <p>🍽️ <strong>Jantar:</strong> ${jantar}</p>
+        <p>🎉 <strong>Rolê:</strong> ${role}</p>
+      `;
+
+      iniciarContador(data);
+    }
+
+    function iniciarContador(dataAlvoStr) {
+      const alvo = new Date(dataAlvoStr);
+      const timer = setInterval(() => {
+        const agora = new Date();
+        const diff = alvo - agora;
+
+        if (diff <= 0) {
+          clearInterval(timer);
+          document.getElementById('contador').textContent = 'É HOJE, THA! 💖';
+          return;
+        }
+
+        const dias = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const horas = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const minutos = Math.floor((diff / (1000 * 60)) % 60);
+        const segundos = Math.floor((diff / 1000) % 60);
+
+        document.getElementById('contador').textContent = `${dias}d ${horas}h ${minutos}m ${segundos}s`;
+      }, 1000);
+    }
+  </script>
+</body>
+</html>
